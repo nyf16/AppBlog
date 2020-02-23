@@ -1,16 +1,29 @@
 ﻿@model Post
 
-@{ 
+@{
 
 }
 
-<h2>@Model.Title</h2>
+@*<h2>@Model.Title</h2>
 
-@if (!String.IsNullOrEmpty(Model.Picture))
-{
-    var picture_path = $"/Picture/{Model.Picture}";
-    <img src="@picture_path" height="1080" width="1800"/>
-}
+    @if (!String.IsNullOrEmpty(Model.Picture))
+    {
+        var picture_path = $"/Picture/{Model.Picture}";
+        <img src="@picture_path" height="1080" width="1800"/>
+    }
 
-<p>@Model.Body</p>
+    <p>@Model.Body</p>*@
 
+<div class="container">
+    <div class="post no-shadow">
+        @if (!String.IsNullOrEmpty(Model.Picture))
+        {
+            var picture_path = $"/Picture/{Model.Picture}";
+            <img src="@picture_path" />
+            <span class="title">@Model.Title</span>
+        }
+    </div>
+    <div class="post-body">
+        @Model.Body
+    </div>
+</div>
