@@ -38,16 +38,16 @@ namespace BlogApp.Controllers
             if (id == null)
             {
                 return View(new PostViewModel());
-            }                
+            }
             else
             {
                 var post = _repo.GetPost((int)id);
-                return View(new PostViewModel 
+                return View(new PostViewModel
                 {
                     Id = post.Id,
                     Title = post.Title,
-                    Body = post.Body                  
-                                        
+                    Body = post.Body,
+                    CurrentPicture = post.Picture
                 });
             }
         }
@@ -59,9 +59,13 @@ namespace BlogApp.Controllers
             {
                 Id = vm.Id,
                 Title = vm.Title,
-                Body = vm.Body,
-                Picture = await _fileManager.SavePicture(vm.Picture)
+                Body = vm.Body
             };
+
+            if (vm.Picture == null)
+                post.Picture = vm.CurrentPicture;
+            else
+                post.Picture = await _fileManager.SavePicture(vm.Picture);
 
             if (post.Id > 0)
                 _repo.UpdatePost(post);

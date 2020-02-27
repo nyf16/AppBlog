@@ -13,6 +13,7 @@ namespace BlogApp.ViewModels
 
         public string Title { get; set; } = "";
         public string Body { get; set; } = "";
+        public string CurrentPicture { get; set; } = "";
         public IFormFile Picture { get; set; } = null;
     }
 }

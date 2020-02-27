@@ -1,6 +1,6 @@
 ﻿body {
     margin: 0;
-    background-color: #182c37;
+    background-color: #4caf50;
 }
 
 a {
@@ -63,7 +63,10 @@ nav {
 
 .post-body {
     margin: -5px 5px 0;
+    padding: 20px 5px;
     background-color: white;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .no shadow {
