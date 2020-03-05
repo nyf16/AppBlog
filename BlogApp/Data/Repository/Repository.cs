@@ -19,12 +19,19 @@ namespace BlogApp.Data.Repository
         public void AddPost(Post post)
         {
             _ctx.Posts.Add(post);
-            
+
         }
 
         public List<Post> GetAllPosts()
         {
             return _ctx.Posts.ToList();
+        }
+
+        public List<Post> GetAllPosts(string category)
+        {
+            return _ctx.Posts
+                .Where(post => post.Category.ToLower().Equals(category.ToLower()))
+                .ToList();
         }
 
         public Post GetPost(int id)
@@ -44,12 +51,12 @@ namespace BlogApp.Data.Repository
 
         public async Task<bool> SaveChangesAsync()
         {
-            if(await _ctx.SaveChangesAsync() > 0)
+            if (await _ctx.SaveChangesAsync() > 0)
             {
                 return true;
             }
             return false;
         }
- 
+
     }
 }

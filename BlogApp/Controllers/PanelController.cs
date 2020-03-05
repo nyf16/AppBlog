@@ -47,7 +47,10 @@ namespace BlogApp.Controllers
                     Id = post.Id,
                     Title = post.Title,
                     Body = post.Body,
-                    CurrentPicture = post.Picture
+                    CurrentPicture = post.Picture,
+                    Description = post.Description,
+                    Category = post.Category,
+                    Tags = post.Tags
                 });
             }
         }
@@ -59,7 +62,10 @@ namespace BlogApp.Controllers
             {
                 Id = vm.Id,
                 Title = vm.Title,
-                Body = vm.Body
+                Body = vm.Body,
+                Description = vm.Description,
+                Category = vm.Category,
+                Tags = vm.Tags
             };
 
             if (vm.Picture == null)
