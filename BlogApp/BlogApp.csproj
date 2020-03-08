@@ -5,18 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
 
@@ -39,5 +39,7 @@
     <None Include="wwwroot\lib\Trumbowyg-master\.github\FUNDING.yml" />
     <None Include="wwwroot\lib\Trumbowyg-master\.github\ISSUE_TEMPLATE.md" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="http://json.schemastore.org/bundleconfig" /></VisualStudio></ProjectExtensions>
 
 </Project>
