@@ -1,3 +1,2 @@
-[![Build Status](https://dev.azure.com/onurferikblog/blog/_apis/build/status/nyf16.AppBlog-ASP.NET-CI?branchName=master)](https://dev.azure.com/onurferikblog/blog/_build/latest?definitionId=1&branchName=master)
-# AppBlog
+[![Build Status](https://dev.azure.com/onurferikblog/blog/_apis/build/status/nyf16.AppBlog?branchName=master)](https://dev.azure.com/onurferikblog/blog/_build/latest?definitionId=1&branchName=master)
 Make your blog .net core
