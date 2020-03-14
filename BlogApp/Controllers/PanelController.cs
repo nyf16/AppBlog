@@ -71,7 +71,13 @@ namespace BlogApp.Controllers
             if (vm.Picture == null)
                 post.Picture = vm.CurrentPicture;
             else
+            {
+                if (!string.IsNullOrEmpty(vm.CurrentPicture))
+                    _fileManager.RemovePicture(vm.CurrentPicture);
+
                 post.Picture = await _fileManager.SavePicture(vm.Picture);
+            }
+
 
             if (post.Id > 0)
                 _repo.UpdatePost(post);
