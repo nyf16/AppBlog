@@ -18,18 +18,20 @@ namespace BlogApp
 {
     public class Startup
     {
-        private IConfiguration _config;
 
-        public Startup(IConfiguration config)
+
+        public Startup(IConfiguration configuration)
         {
-            _config = config;
+            Configuration = configuration;
         }
+
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_config["DefaultConnection"]));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyBlogsDb")));
 
             // AddIdentity registers the services
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
@@ -41,8 +43,9 @@ namespace BlogApp
             })
                 //.AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
-            
-            services.ConfigureApplicationCookie(options => {
+
+            services.ConfigureApplicationCookie(options =>
+            {
                 options.LoginPath = "/Auth/Login";
             });
 
@@ -58,7 +61,7 @@ namespace BlogApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }                      
+            }
 
             app.UseRouting();
 
