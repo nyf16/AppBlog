@@ -44,9 +44,7 @@
   </ItemGroup>
 
   <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties appsettings_1json__JsonSchema="http://json.schemastore.org/bundleconfig" />
-    </VisualStudio>
+    <VisualStudio><UserProperties appsettings_1development_1json__JsonSchema="http://json.schemastore.org/appsettings" /></VisualStudio>
   </ProjectExtensions>
 
 </Project>
