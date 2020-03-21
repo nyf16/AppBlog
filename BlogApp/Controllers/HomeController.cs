@@ -34,6 +34,7 @@ namespace BlogApp.Controllers
             View(_repo.GetPost(id));
 
         [HttpGet("/Picture/{picture}")]
+        [ResponseCache(CacheProfileName = "Monthly")]
         public IActionResult Picture(string picture) =>
             new FileStreamResult(
                 _fileManager.PictureStream(picture), $"picture/{picture.Substring(picture.LastIndexOf('.') + 1)}");

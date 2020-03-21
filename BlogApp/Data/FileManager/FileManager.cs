@@ -13,12 +13,11 @@ namespace BlogApp.Data.FileManager
     public class FileManager : IFileManager
     {
         private string _picturePath;
-        private string picture;
+
 
         public FileManager(IConfiguration config)
         {
             _picturePath = config["Path:Pictures"];
-
         }
 
         public FileStream PictureStream(string picture)
@@ -26,7 +25,7 @@ namespace BlogApp.Data.FileManager
             return new FileStream(Path.Combine(_picturePath, picture), FileMode.Open, FileAccess.Read);
         }
 
-        public bool RemovePicture(string args)
+        public bool RemovePicture(string picture)
         {
             try
             {
