@@ -41,7 +41,7 @@ namespace BlogApp.Data.FileManager
 
         }
 
-        public async Task<string> SavePicture(IFormFile picture)
+        public string SavePicture(IFormFile picture)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace BlogApp.Data.FileManager
 
                 using (var fileStream = new FileStream(Path.Combine(save_path, fileName), FileMode.Create))
                 {
-                    await picture.CopyToAsync(fileStream);
+                    //await picture.CopyToAsync(fileStream);
                     MagicImageProcessor.ProcessImage(picture.OpenReadStream(), fileStream, PictureOptions());
                 }
 
@@ -80,6 +80,9 @@ namespace BlogApp.Data.FileManager
             JpegSubsampleMode = ChromaSubsampleMode.Subsample420
         };
 
-
+        Task<string> IFileManager.SavePicture(IFormFile picture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
