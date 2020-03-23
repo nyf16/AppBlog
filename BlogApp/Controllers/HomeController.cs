@@ -2,6 +2,8 @@
 using BlogApp.Data.FileManager;
 using BlogApp.Data.Repository;
 using BlogApp.Models;
+using BlogApp.Models.Comments;
+using BlogApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -38,6 +40,42 @@ namespace BlogApp.Controllers
         public IActionResult Picture(string picture) =>
             new FileStreamResult(
                 _fileManager.PictureStream(picture), $"picture/{picture.Substring(picture.LastIndexOf('.') + 1)}");
+
+        [HttpPost]
+        public async Task<IActionResult> Comment(CommentViewModel vm)
+        {
+            if (!ModelState.IsValid)
+                return RedirectToAction("Post", new { id = vm.PostId });
+
+            var post = _repo.GetPost(vm.PostId);
+            if (vm.MainCommentId > 0)
+            {
+                post.MainComments = post.MainComments ?? new List<MainComment>();
+
+                post.MainComments.Add(new MainComment
+                {
+                    Message = vm.Message,
+                    Created = DateTime.Now,
+
+                });
+
+                _repo.UpdatePost(post);
+            }
+            else
+            {
+                var comment = new SubComment
+                {
+                    MainCommentId = vm.MainCommentId,
+                    Message = vm.Message,
+                    Created = DateTime.Now,
+                };
+                _repo.AddSubComment(comment);
+            }
+
+            await _repo.SaveChangesAsync();
+
+            return RedirectToAction("Post", new { id = vm.PostId });
+        }
 
         //public IActionResult Index(string category)
         //{
