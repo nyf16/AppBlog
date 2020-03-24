@@ -26,16 +26,26 @@ namespace BlogApp.Data.Repository
 
         public List<Post> GetAllPosts()
         {
+
             return _ctx.Posts.ToList();
+        }
+
+        public List<Post> GetAllPosts(int pageNumber)
+        {
+            int pageSize = 5;
+            int pageCount = _ctx.Posts.Count() / pageSize;
+            return _ctx.Posts
+                .Skip(pageSize * (pageNumber - 1))
+                .Take(pageSize)
+                .ToList();
         }
 
         public List<Post> GetAllPosts(string category)
         {
-            Func<Post, bool> InCategory = (post) => { return post.Category.ToLower().Equals(category.ToLower()); };
 
-            return _ctx.Posts
-                .Where(post => post.Category.ToLower().Equals(category.ToLower()))
-                .ToList();
+            return _ctx.Posts.ToList();
+            //Func<Post, bool> InCategory = (post) => { return post.Category.ToLower().Equals(category.ToLower()); };
+            //.Where(post => post.Category.ToLower().Equals(category.ToLower()))
         }
 
         public Post GetPost(int id)

@@ -12,6 +12,7 @@ namespace BlogApp.Data.Repository
     {
         Post GetPost(int id);
         List<Post> GetAllPosts();
+        List<Post> GetAllPosts(int pageNumber);
         List<Post> GetAllPosts(string Category);
         void AddPost(Post post);
         void UpdatePost(Post post);

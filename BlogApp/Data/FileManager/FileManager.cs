@@ -41,7 +41,7 @@ namespace BlogApp.Data.FileManager
 
         }
 
-        public string SavePicture(IFormFile picture)
+        public async Task<string> SavePicture(IFormFile picture)
         {
             try
             {
@@ -80,9 +80,6 @@ namespace BlogApp.Data.FileManager
             JpegSubsampleMode = ChromaSubsampleMode.Subsample420
         };
 
-        Task<string> IFileManager.SavePicture(IFormFile picture)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
