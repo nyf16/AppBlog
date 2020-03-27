@@ -1,5 +1,6 @@
 ﻿using BlogApp.Models;
 using BlogApp.Models.Comments;
+using BlogApp.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -30,29 +31,38 @@ namespace BlogApp.Data.Repository
             return _ctx.Posts.ToList();
         }
 
-        public List<Post> GetAllPosts(int pageNumber)
+        public IndexViewModel GetAllPosts(int pageNumber, string category)
         {
+            Func<Post, bool> InCategory = (post) => { return post.Category.ToLower().Equals(category.ToLower()); };
+
             int pageSize = 5;
-            int pageCount = _ctx.Posts.Count() / pageSize;
-            return _ctx.Posts
-                .Skip(pageSize * (pageNumber - 1))
-                .Take(pageSize)
-                .ToList();
+            int skipAmount = pageSize * (pageNumber - 1);
+
+            var query = _ctx.Posts.AsQueryable();
+
+            if (!string.IsNullOrEmpty(category))
+                query = query.Where(x => InCategory(x));
+
+            int postsCount = query.Count();
+
+            return new IndexViewModel
+            {
+                PageNumber = pageNumber,
+                NextPage = postsCount > skipAmount + pageSize,
+                Category = category,
+                Posts = query.ToList()
+                     .Skip(skipAmount)
+                     .Take(pageSize)
+                     .ToList()
+                        
+            };
+
         }
-
-        public List<Post> GetAllPosts(string category)
-        {
-
-            return _ctx.Posts.ToList();
-            //Func<Post, bool> InCategory = (post) => { return post.Category.ToLower().Equals(category.ToLower()); };
-            //.Where(post => post.Category.ToLower().Equals(category.ToLower()))
-        }
-
         public Post GetPost(int id)
         {
             return _ctx.Posts
                 .Include(p => p.MainComments)
-                .ThenInclude(mc => mc.SubComments)
+                    .ThenInclude(mc => mc.SubComments)
                 .FirstOrDefault(p => p.Id == id);
         }
 
@@ -81,3 +91,4 @@ namespace BlogApp.Data.Repository
         }
     }
 }
+

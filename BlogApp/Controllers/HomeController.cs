@@ -32,9 +32,9 @@ namespace BlogApp.Controllers
             if (pageNumber < 1)
                 return RedirectToAction("Index", new { pageNumber = 1, category });
 
-            return View(string.IsNullOrEmpty(category) ?
-               _repo.GetAllPosts(pageNumber) :
-               _repo.GetAllPosts(category));
+            var vm = _repo.GetAllPosts(pageNumber, category);
+
+            return View(vm);
         }
 
         public IActionResult Post(int id) =>
