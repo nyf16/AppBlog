@@ -27,7 +27,7 @@
         </ul>*@
     @foreach (var post in Model.Posts)
     {
-        var picture_path = $"/Picture/{post.Picture}";
+        var picture_path = $"{base_path}/Picture/{post.Picture}";
         <a class="post" asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">
             <img src="@picture_path" width="500" />
             <span class="title">
@@ -36,15 +36,21 @@
         </a>
     }
 
-    <div>
+    <div class="pages">
         @if (Model.PageNumber > 1)
         {
-            <a asp-action="Index" asp-controller="Home" asp-route-category="@Model.Category" asp-route-pageNumber="@Model.PageNumber - 1">Previous Page</a>
+            <a asp-action="Index" asp-controller="Home" asp-route-category="@Model.Category" asp-route-pageNumber="@(Model.PageNumber - 1)">Previous Page</a>
         }
+
+        @for (int i = 1; i <= Model.PageCount; i++)
+        {
+            <a class="@(i == Model.PageNumber ? "active" : "")" asp-controller="Home" asp-route-category="@Model.Category" asp-route-pageNumber="@i">@i</a>
+        }
+
         @if (Model.NextPage)
         {
 
-            <a asp-action="Index" asp-controller="Home" asp-route-category="@Model.Category" asp-route-pageNumber="@Model.PageNumber + 1">Next Page</a>
+            <a asp-action="Index" asp-controller="Home" asp-route-category="@Model.Category" asp-route-pageNumber="@(Model.PageNumber + 1)">Next Page</a>
         }
     </div>
 

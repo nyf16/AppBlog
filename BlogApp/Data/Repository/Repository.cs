@@ -35,7 +35,7 @@ namespace BlogApp.Data.Repository
         {
             Func<Post, bool> InCategory = (post) => { return post.Category.ToLower().Equals(category.ToLower()); };
 
-            int pageSize = 5;
+            int pageSize = 3;
             int skipAmount = pageSize * (pageNumber - 1);
 
             var query = _ctx.Posts.AsQueryable();
@@ -48,9 +48,10 @@ namespace BlogApp.Data.Repository
             return new IndexViewModel
             {
                 PageNumber = pageNumber,
+                PageCount = (int) Math.Ceiling((double) postsCount / pageSize),
                 NextPage = postsCount > skipAmount + pageSize,
                 Category = category,
-                Posts = query.ToList()
+                Posts = query
                      .Skip(skipAmount)
                      .Take(pageSize)
                      .ToList()
