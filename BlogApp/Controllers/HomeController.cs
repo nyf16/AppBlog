@@ -53,7 +53,7 @@ namespace BlogApp.Controllers
                 return RedirectToAction("Post", new { id = vm.PostId });
 
             var post = _repo.GetPost(vm.PostId);
-            if (vm.MainCommentId > 0)
+            if (vm.MainCommentId == 0)
             {
                 post.MainComments = post.MainComments ?? new List<MainComment>();
 
