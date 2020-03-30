@@ -25,6 +25,9 @@
                 </li>
             }
         </ul>*@
+
+    <partial name="_BlogPagination" model="Model" />
+
     @foreach (var post in Model.Posts)
     {
         var picture_path = $"{base_path}/Picture/{post.Picture}";
@@ -36,22 +39,7 @@
         </a>
     }
 
-    <div class="pages">
-        @if (Model.PageNumber > 1)
-        {
-            <a asp-action="Index" asp-controller="Home" asp-route-category="@Model.Category" asp-route-pageNumber="@(Model.PageNumber - 1)">Previous Page</a>
-        }
+    <partial name="_BlogPagination" model="Model" />
 
-        @for (int i = 1; i <= Model.PageCount; i++)
-        {
-            <a class="@(i == Model.PageNumber ? "active" : "")" asp-controller="Home" asp-route-category="@Model.Category" asp-route-pageNumber="@i">@i</a>
-        }
-
-        @if (Model.NextPage)
-        {
-
-            <a asp-action="Index" asp-controller="Home" asp-route-category="@Model.Category" asp-route-pageNumber="@(Model.PageNumber + 1)">Next Page</a>
-        }
-    </div>
 
 </div>

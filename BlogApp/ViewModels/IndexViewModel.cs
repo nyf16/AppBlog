@@ -14,5 +14,6 @@ namespace BlogApp.ViewModels
         public int PageCount { get; set; }
         public string Category { get; set; }
         public IEnumerable<Post> Posts { get; set; }
+        public IEnumerable<int> Pages { get; internal set; }
     }
 }
