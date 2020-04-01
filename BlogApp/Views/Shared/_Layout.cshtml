@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
     <title>@ViewBag.Title</title>
     <meta name="description" content="@ViewBag.Description" />
@@ -19,13 +19,18 @@
 <body>
     <div>
         <nav>
+
             <a asp-controller="Home" asp-action="Index">Home</a>
             <a asp-controller="Home" asp-action="Index" asp-route-category="Development">Development</a>
-            <a asp-controller="Panel" asp-action="Index">Admin Panel</a>
 
 
             @if (User.Identity.IsAuthenticated)
             {
+                @if (User.IsInRole("Admin"))
+                {
+
+                    <a asp-controller="Home" asp-action="Index" asp-route-category="Panel">Admin Panel</a>
+                }
                 <a asp-controller="Auth" asp-action="Logout">Logout</a>
             }
             else
