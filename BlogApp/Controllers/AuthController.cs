@@ -69,11 +69,11 @@ namespace BlogApp.Controllers
                 Email = vm.Email
             };
 
-            var result = await _userManager.CreateAsync(user, "password");
+            var result = await _userManager.CreateAsync(user, vm.Password);
 
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false);
+                await _signInManager.SignInAsync(user, isPersistent: false);
 
                 return RedirectToAction("Index", "Home");
             }

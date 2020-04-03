@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,15 +35,16 @@ namespace BlogApp.Data.Repository
 
         public IndexViewModel GetAllPosts(int pageNumber, string category)
         {
-            Func<Post, bool> InCategory = (post) => { return post.Category.ToLower().Equals(category.ToLower()); };
+            Expression<Func<Post, bool>> InCategory = (post) => post.Category.ToLower().Equals(category.ToLower());
 
             int pageSize = 2;
             int skipAmount = pageSize * (pageNumber - 1);
 
-            var query = _ctx.Posts.AsQueryable();
+            IQueryable<Post> query = _ctx.Posts.AsNoTracking().AsQueryable();
 
             if (!string.IsNullOrEmpty(category))
-                query = query.Where(x => InCategory(x));
+                query = query.Where(x => x.Category.ToLower() == category.ToLower());
+            //query = query.Where(x => InCategory(x));
 
             int postsCount = query.Count();
             int pageCount = (int)Math.Ceiling((double)postsCount / pageSize);
@@ -63,7 +65,7 @@ namespace BlogApp.Data.Repository
 
         }
 
-        
+
         public Post GetPost(int id)
         {
             return _ctx.Posts
