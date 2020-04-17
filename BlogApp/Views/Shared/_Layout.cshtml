@@ -20,8 +20,8 @@
     <div>
         <nav>
 
-            <a asp-controller="Home" asp-action="Index">Home</a>
-            <a asp-controller="Home" asp-action="Index" asp-route-category="Development">Development</a>
+            <a asp-controller="Home" asp-action="Index">Ana Sayfa</a>
+            <a asp-controller="Home" asp-action="Index" asp-route-category="Development">Yazılım Geliştirme</a>
 
 
             @if (User.Identity.IsAuthenticated)
@@ -35,7 +35,7 @@
             }
             else
             {
-                <a asp-controller="Auth" asp-action="Login">Sign In</a>
+                <a asp-controller="Auth" asp-action="Login">Oturum Aç</a>
             }
         </nav>
     </div>

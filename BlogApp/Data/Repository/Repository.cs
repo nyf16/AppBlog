@@ -33,18 +33,25 @@ namespace BlogApp.Data.Repository
             return _ctx.Posts.ToList();
         }
 
-        public IndexViewModel GetAllPosts(int pageNumber, string category)
+        public IndexViewModel GetAllPosts(int pageNumber, string category, string search)
         {
             Expression<Func<Post, bool>> InCategory = (post) => post.Category.ToLower().Equals(category.ToLower());
 
             int pageSize = 2;
             int skipAmount = pageSize * (pageNumber - 1);
 
-            IQueryable<Post> query = _ctx.Posts.AsNoTracking().AsQueryable();
+            //IQueryable<Post> 
+            var query = _ctx.Posts.AsNoTracking().AsQueryable();
+            _ctx.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 
             if (!string.IsNullOrEmpty(category))
                 query = query.Where(x => x.Category.ToLower() == category.ToLower());
             //query = query.Where(x => InCategory(x));
+
+            if (!string.IsNullOrEmpty(search))
+                query = query.Where(x => EF.Functions.Like(x.Title, $"%{ search}%")
+                                    || EF.Functions.Like(x.Body, $"%{ search}%")
+                                    || EF.Functions.Like(x.Description, $"%{ search}%"));
 
             int postsCount = query.Count();
             int pageCount = (int)Math.Ceiling((double)postsCount / pageSize);
@@ -56,6 +63,7 @@ namespace BlogApp.Data.Repository
                 NextPage = postsCount > skipAmount + pageSize,
                 Pages = PageHelper.PageNumbers(pageNumber, pageCount).ToList(),
                 Category = category,
+                Search = search,
                 Posts = query
                      .Skip(skipAmount)
                      .Take(pageSize)
