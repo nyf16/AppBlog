@@ -41,7 +41,7 @@ namespace BlogApp
                         UserName = "admin",
                         Email = "admin@test.com"
                     };
-                    var result = userManager.CreateAsync(adminUser, "password").GetAwaiter().GetResult();
+                    var result = userManager.CreateAsync(adminUser, "!P@sSW0rd1").GetAwaiter().GetResult();
                     //Add role to user
                     userManager.AddToRoleAsync(adminUser, adminRole.Name).GetAwaiter().GetResult();
                 }
