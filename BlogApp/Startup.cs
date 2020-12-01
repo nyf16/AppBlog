@@ -33,8 +33,6 @@ namespace BlogApp
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("blognyfdb")));
 
-            services.AddRazorPages().
-                AddRazorRuntimeCompilation();
 
             // AddIdentity registers the services
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
