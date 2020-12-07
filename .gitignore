@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 /BlogApp/Migrations
 /BlogApp/wwwroot/content/blog
+/AppBlog
